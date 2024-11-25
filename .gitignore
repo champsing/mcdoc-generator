@@ -1,0 +1,9 @@
+# Vue.JS
+node_modules
+dist
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.DS_Store

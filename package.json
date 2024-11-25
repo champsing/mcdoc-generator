@@ -1,0 +1,37 @@
+{
+    "name": "mcdocgen",
+    "private": true,
+    "version": "0.0.1",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vue-tsc && vite build",
+        "preview": "vite preview"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/champsing/mcdoc-generator.git"
+    },
+    "author": "champsing, pikacnu, bigfrog",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/champsing/mcdoc-generator/issues"
+    },
+    "homepage": "https://github.com/champsing/mcdoc-generator#readme",
+    "dependencies": {
+        "@vitejs/plugin-vue": "^5.2.0",
+        "@vueuse/components": "^10.11.0",
+        "@vueuse/core": "^10.11.0",
+        "mcdocgen": "file:",
+        "vue": "^3.4.15"
+    },
+    "devDependencies": {
+        "autoprefixer": "^10.4.20",
+        "postcss": "^8.4.38",
+        "sass": "^1.77.8",
+        "tailwindcss": "^3.4.4",
+        "typescript": "^5.4.5",
+        "url": "^0.11.3",
+        "vite": "^5.4.3"
+    }
+}
