@@ -23,7 +23,8 @@
         "@vueuse/components": "^10.11.0",
         "@vueuse/core": "^10.11.0",
         "mcdocgen": "file:",
-        "vue": "^3.4.15"
+        "vue": "^3.4.15",
+        "vuestic-ui": "^1.10.3"
     },
     "devDependencies": {
         "autoprefixer": "^10.4.20",
