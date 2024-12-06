@@ -1,6 +1,13 @@
 <script setup lang="ts">
-import { useColors, VaSelect, VaInput, VaButton, VaChip } from "vuestic-ui";
-import { validAttributeNames } from "../mcdoc/attribute";
+import {
+    useColors,
+    VaSelect,
+    VaInput,
+    VaButton,
+    VaChip,
+    VaPopover,
+} from "vuestic-ui";
+import { validAttributeNames } from "@/mcdoc/attribute";
 import { computed, ref } from "vue";
 
 // const props = defineProps<{
@@ -21,72 +28,57 @@ interface Attribute {
     type: string;
     value: string;
 }
+enum ValueType {
+    Refer = "refer",
+    Number = "number",
+    String = "string",
+}
 
 useColors().applyPreset("dark");
 
+// 子層元件用來接父層往下傳的資料
+const attributeData = defineModel("attributeData", {
+    type: Object,
+    default: () => ({
+        nameType: null,
+        name: "",
+        selectedSourceName: "",
+        attributes: [],
+        valueType: "",
+        stringValue: "",
+        stringLength: -1,
+        numberValue: "",
+        property: "",
+    }),
+    set(value) {
+        return value;
+    },
+});
+// 只有這層用到，用ref
+const currentAttributeData = ref({
+    type: "",
+    value: "",
+});
+
 const sourceNameType = ["value", "dymanic"];
-const nameType = defineModel("nameType", {
-    default: null,
-    set(value) {
-        return value;
-    },
-});
+const propertyList = ["a", "b", "c"];
 const sourcesName = ["a", "b", "c"];
-const selectedSourceName = defineModel("selectedSourceName", {
-    default: null,
-    set(value) {
-        return value;
-    },
-});
-const name = defineModel("name", {
-    default: "",
-    set(value) {
-        return value;
-    },
-});
 
-const valueType = defineModel("valueType", {
-    default: "",
-    set(value) {
-        return value;
-    },
-});
-
-const attributes = ref<Attribute[]>([]);
-
-const currentAttributeType = defineModel("currentAttributeType", {
-    default: "",
-    set(value) {
-        return value;
-    },
-});
-const currentAttributeData = defineModel("currentAttributeData", {
-    default: "",
-    set(value) {
-        return value;
-    },
-});
-
-const attributeTypeOptions = computed(() =>
+const attributeTypeOption = computed(() =>
     Array.from(validAttributeNames).filter(
-        (attribute) => !attributes.value.some((a) => a.type === attribute)
+        (attribute) =>
+            !attributeData.value.attributes.some((a) => a.type === attribute)
     )
 );
+const valueTypeOption = Object.values(ValueType);
 
-enum valueTypes {
-    refer = "refer",
-    number = "number",
-    string = "string",
-}
-const valueTypesOptions = Object.keys(valueTypes);
-
-const numberValue = defineModel("numberValue", {
-    default: "",
-    set(value) {
-        return value;
-    },
-});
-
+const stringRuleSet = ref([
+    (v) =>
+        v.length <
+        (attributeData.value.stringLength >= 0
+            ? attributeData.value.stringLength
+            : Infinity),
+]);
 const numberRuleSet = ref([
     (v) =>
         !(v === "" || isNaN(Number(v))) ||
@@ -96,148 +88,148 @@ const numberRuleSet = ref([
             : true),
 ]);
 
-const stringLength = defineModel("stringLength", {
-    default: -1,
-    set(value) {
-        return value;
-    },
-});
+/**新增屬性 */
+const onAddAttribute = () => {
+    const { type, value } = currentAttributeData.value;
+    if (type === "" || value === "") return;
+    attributeData.value.attributes.push({
+        type,
+        value,
+    });
+    currentAttributeData.value.type = "";
+    currentAttributeData.value.value = "";
+};
 
-const StringValue = defineModel("StringValue", {
-    default: "",
-    set(value) {
-        return value;
-    },
-});
-
-const PropertyList = ["a", "b", "c"];
-
-const Property = defineModel("Property", {
-    default: "",
-    set(value) {
-        return value;
-    },
-});
+/**刪除屬性 */
+const onDeleteAttribute = (index: number) => {
+    attributeData.value.attributes.splice(index, 1);
+};
 </script>
 
 <template>
-    <div class="flex flex-col">
-        <div class="flex flex-row">
+    <div class="flex flex-col gap-3">
+        <div class="flex flex-row gap-3">
             <VaSelect
-                v-model="nameType"
+                v-model="attributeData.nameType"
                 :options="sourceNameType"
                 placeholder="Type"
             />
             <div>
                 <VaInput
-                    v-if="nameType === 'value' || nameType === null"
-                    placeholder="name"
-                    v-model="name"
-                    :disabled="nameType === 'dymanic' || nameType === null"
+                    v-if="
+                        attributeData.nameType === 'value' ||
+                        attributeData.nameType === null
+                    "
+                    v-model="attributeData.name"
+                    placeholder="Name"
+                    :disabled="
+                        attributeData.nameType === 'dymanic' ||
+                        attributeData.nameType === null
+                    "
                 />
                 <VaSelect
-                    v-if="nameType === 'dymanic'"
-                    placeholder="name"
-                    v-model="selectedSourceName"
+                    v-if="attributeData.nameType === 'dymanic'"
+                    v-model="attributeData.selectedSourceName"
                     :options="sourcesName"
+                    placeholder="Dymanic name"
                 />
             </div>
             <p class="text-2xl ml-2 mr-2">:</p>
         </div>
 
-        <div class="flex">
+        <div class="flex gap-3">
             <VaSelect
-                v-model="currentAttributeType"
-                :options="attributeTypeOptions"
-                placeholder="attributeType"
+                v-model="currentAttributeData.type"
+                :options="attributeTypeOption"
+                placeholder="Attribute type"
             />
             <VaInput
-                placeholder="attributeData"
-                v-model="currentAttributeData"
+                v-model="currentAttributeData.value"
+                placeholder="Attribute data"
             />
 
-            <VaButton
-                preset="primary"
-                size="small"
-                color="rgb(164, 255, 164)"
-                @click="
-                    () => {
-                        if (
-                            currentAttributeType === '' ||
-                            currentAttributeData === ''
-                        )
-                            return;
-                        attributes.push({
-                            type: currentAttributeType,
-                            value: currentAttributeData,
-                        });
-                        currentAttributeType = '';
-                        currentAttributeData = '';
-                    }
-                "
-            >
-                +
-            </VaButton>
+            <VaPopover class="mr-2 flex justify-center" message="新增屬性">
+                <!-- 加屬性 -->
+                <VaButton
+                    preset="primary"
+                    size="small"
+                    color="rgb(164, 255, 164)"
+                    @click="onAddAttribute"
+                >
+                    +
+                </VaButton>
+            </VaPopover>
         </div>
-        <div class="m-4 flex flex-col *:ml-2">
+        <div class="m-4 flex flex-col *:ml-2 gap-3">
             <div
-                v-for="(attribute, index) in attributes"
+                v-for="(attribute, index) in attributeData.attributes"
                 :key="index"
-                class="flex flex-row"
+                class="flex flex-row gap-3"
             >
                 <VaChip outline square color="rgb(34, 229, 164)" readonly>
                     {{ attribute.type }}
                 </VaChip>
-                <VaChip outline square color="rgb(34, 229, 164)" readonly>
+                :
+                <VaChip outline square primary readonly>
                     {{ attribute.value }}
                 </VaChip>
+                <VaPopover class="mr-2 flex justify-center" message="刪除屬性">
+                    <!-- 刪除屬性 -->
+                    <VaButton
+                        preset="primary"
+                        size="small"
+                        color="danger"
+                        @click="onDeleteAttribute(index)"
+                    >
+                        X
+                    </VaButton>
+                </VaPopover>
             </div>
         </div>
 
-        <div class="flex flex-row">
+        <div class="flex flex-row gap-3">
             <div>
                 <VaSelect
-                    :options="valueTypesOptions"
-                    placeholder="valueType"
-                    v-model="valueType"
+                    v-model="attributeData.valueType"
+                    :options="valueTypeOption"
+                    placeholder="Value type"
                 />
             </div>
-            <div v-if="valueType === valueTypes.string">
+            <div v-if="attributeData.valueType === ValueType.String">
                 <VaInput
-                    placeholder="StringValue"
-                    v-model="StringValue"
+                    v-model="attributeData.stringValue"
+                    placeholder="String value"
                     type="string"
-                    :rules="[
-                        (v) =>
-                            v.length <
-                            (stringLength >= 0 ? stringLength : Infinity),
-                    ]"
+                    :rules="stringRuleSet"
                     error-messages="String Value must be a strings"
                 />
                 @
                 <VaInput
-                    placeholder="String Length"
-                    v-model="stringLength"
+                    v-model="attributeData.stringLength"
+                    placeholder="String length"
                     type="number"
                     :rules="[(v) => parseInt(v) >= -1]"
                     error-messages="stringLength must be a number"
                 />
             </div>
-            <div v-if="valueType === valueTypes.number">
+            <div v-if="attributeData.valueType === ValueType.Number">
                 <VaInput
-                    placeholder="numberValue"
-                    v-model="numberValue"
+                    v-model="attributeData.numberValue"
+                    placeholder="Number value"
                     type="string"
                     :rules="numberRuleSet"
                     error-messages="numberValue must be a number"
                 />
             </div>
-            <div v-if="valueType === valueTypes.refer" class="inline-flex">
+            <div
+                v-if="attributeData.valueType === ValueType.Refer"
+                class="inline-flex"
+            >
                 <p class="text-2xl ml-2 mr-2">[[[</p>
                 <VaSelect
+                    v-model="attributeData.property"
                     placeholder="Property"
-                    :options="PropertyList"
-                    v-model="Property"
+                    :options="propertyList"
                 />
                 <p class="text-2xl ml-2 mr-2">]]]</p>
             </div>

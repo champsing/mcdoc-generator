@@ -7,6 +7,7 @@ import {
     //VaSelect,
 } from "vuestic-ui";
 import Test from "./components/test.vue";
+import { ref } from "vue";
 
 useColors().applyPreset("dark");
 
@@ -15,6 +16,18 @@ let structName = defineModel("filterSearch", {
     set(value) {
         return value;
     },
+});
+
+const attributeData = ref({
+    nameType: null,
+    name: "",
+    selectedSourceName: "",
+    attributes: [],
+    valueType: "",
+    stringValue: "",
+    stringLength: -1,
+    numberValue: "",
+    property: "",
 });
 /*
 	let property = defineModel('filterStatus', {
@@ -29,16 +42,16 @@ let structName = defineModel("filterSearch", {
 
 <template>
     <div class="min-h-screen flex flex-col">
-        <div class="overflow-hidden relative flex-grow">
-            <div class="flex">
+        <div class="overflow-hidden relative flex-grow p-10">
+            <div class="flex gap-3">
                 <VaChip outline square color="rgb(34, 229, 164)" readonly>
                     struct
                 </VaChip>
                 <VaInput placeholder="struct的名稱" v-model="structName" />
                 <div class="inline text-2xl ml-10 text-zinc-50">{</div>
             </div>
-            <div class="flex flex-col ml-10">
-                <Test />
+            <div class="flex flex-col ml-10 p-5">
+                <Test v-model:attributeData="attributeData" />
             </div>
             <div class="text-2xl text-zinc-50">}</div>
         </div>
