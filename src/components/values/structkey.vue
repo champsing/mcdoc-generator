@@ -29,7 +29,7 @@
 			key.value.isDynamic = keyType.value === 'dynamic';
 			key.value.dynamicKey = dymanicName.value;
 		},
-		{ immediate: true },
+		{ immediate: true, deep: true },
 	);
 </script>
 
@@ -47,7 +47,7 @@
 			>
 			</VaInput>
 			<string
-				v-if="keyType === 'dymanic'"
+				v-if="keyType === 'dynamic'"
 				v-model:string="dymanicName"
 			></string>
 		</div>

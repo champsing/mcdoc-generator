@@ -1,6 +1,12 @@
 <script setup lang="ts">
 	import { ref, watch } from 'vue';
-	import { AnyType, BooleanType, ListType } from '@/mcdoc/types';
+	import {
+		AnyType,
+		BooleanType,
+		ListType,
+		UnionType,
+		IdentifierType,
+	} from '@/mcdoc/types';
 	import { VaSelect } from 'vuestic-ui';
 	import any from './any.vue';
 	import number from './number.vue';
@@ -8,6 +14,8 @@
 	import primitivearray from './primitivearray.vue';
 	import boolean from './boolean.vue';
 	import list from './list.vue';
+	import union from './union.vue';
+	import identifiertype from './identifiertype.vue';
 	import { AllTypesKind, AllTypesToType } from '@/composables/types';
 
 	const structValue = defineModel('structvalue', {
@@ -39,7 +47,7 @@
 </script>
 
 <template>
-	<div class="flex flex-col ">
+	<div class="flex flex-col">
 		<div class="flex flex-row">
 			<VaSelect
 				:options="allTypes"
@@ -48,7 +56,7 @@
 		</div>
 		<div class="flex">
 			<any
-				v-model:any="tempStrcutValueType"
+				v-model:any="(tempStrcutValueType as AnyType)"
 				v-if="strcutTypeTemp === AllTypesKind.Any"
 			></any>
 			<boolean
@@ -71,6 +79,14 @@
 				v-model:string="tempStrcutValueType"
 				v-if="strcutTypeTemp === AllTypesKind.String"
 			></string>
+			<union
+				v-model:union="(tempStrcutValueType as UnionType)"
+				v-if="strcutTypeTemp === AllTypesKind.Union"
+			></union>
+			<identifiertype
+				v-model:identifier="(tempStrcutValueType as IdentifierType)"
+				v-if="strcutTypeTemp === AllTypesKind.Identifier"
+			></identifiertype>
 		</div>
 	</div>
 </template>

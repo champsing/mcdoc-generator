@@ -30,7 +30,7 @@
 		rangeValue,
 		(value) => {
 			console.log('value', value);
-			number.value.valueRange = rangeValue.value;
+			number.value.valueRange = isRange.value ? value : null;
 		},
 		{ deep: Infinity, immediate: true },
 	);
@@ -43,7 +43,11 @@
 			:options="numberTypes"
 		>
 		</VaSelect>
-		<VaCheckbox v-model="isRange" label="number range"> </VaCheckbox>
+		<VaCheckbox
+			v-model="isRange"
+			label="number range"
+		>
+		</VaCheckbox>
 		<range
 			v-if="isRange"
 			v-model:range="rangeValue"

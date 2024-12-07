@@ -1,134 +1,10 @@
 <script setup lang="ts">
-	import {
-		useColors,
-		VaButton,
-		VaChip,
-		VaInput,
-		VaPopover,
-		VaTextarea,
-		//VaSelect,
-	} from 'vuestic-ui';
-	import Test, { AttributeData } from './components/test.vue';
+	import { useColors, VaButton, VaPopover, VaTextarea } from 'vuestic-ui';
 	import { computed, ref } from 'vue';
-	import {
-		NumericType,
-		StringType,
-		StructKey,
-		StructType,
-	} from './mcdoc/types';
-	import { Attribute } from './mcdoc/attribute';
-	import { NumericRange, RangeKind } from './mcdoc/util';
+	import { StructType } from './mcdoc/types';
 	import struct from './components/values/struct.vue';
 
 	useColors().applyPreset('dark');
-
-	let structName = defineModel('filterSearch', {
-		default: '',
-		set(value) {
-			return value;
-		},
-	});
-
-	const attributeDatas = ref([
-		{
-			nameType: null,
-			name: '',
-			selectedSourceName: '',
-			attributes: [],
-			valueType: '',
-			stringMin: -1,
-			stringMax: -1,
-			numberValue: '',
-			property: '',
-		},
-	]);
-
-	//generateFunction use mcdoc/types
-	function generate(
-		structData: AttributeData[],
-		structName: string,
-	): StructType {
-		const dataType = new StructType();
-		dataType.name = structName;
-		dataType.mapping = structData.map((item) => {
-			const structKey = new StructKey();
-			structKey.name = item.name;
-			if (item.nameType === 'dynamic') {
-				structKey.isDynamic = true;
-				structKey.dynamicKey.attributes = item.attributes.map((attribute) => {
-					return new Attribute(attribute.type, attribute.value);
-				});
-			} else {
-				structKey.isDynamic = false;
-			}
-			let type;
-
-			if (item.valueType === 'string') {
-				type = new StringType();
-				const min = item.stringMin === -1 ? null : item.stringMin;
-				const max = item.stringMax === -1 ? null : item.stringMax;
-				if (min !== null && max !== null) {
-					type = new NumericRange(new RangeKind(false, false), min, max);
-				} else if (min !== null) {
-					type = new NumericRange(new RangeKind(false, false), min, Infinity);
-				} else if (max !== null) {
-					type = new NumericRange(new RangeKind(false, false), 0, max);
-				}
-			}
-			if (item.valueType === 'number') {
-				const numbers = item.numberValue.split('..');
-				type = new NumericType().kind = 'int';
-				if (numbers.filter((n) => n === '').length === 2) {
-					const number = numbers.map((n) => Number(n));
-					type = new NumericRange(
-						new RangeKind(false, false),
-						number[0],
-						number[1],
-					);
-				}
-				if (numbers[0] === '') {
-					const number = Number(numbers[1]);
-					type = new NumericRange(
-						new RangeKind(false, false),
-						Infinity,
-						number,
-					);
-				}
-				if (numbers[1] === '') {
-					const number = Number(numbers[0]);
-					type = new NumericRange(new RangeKind(false, false), number, 0);
-				}
-			}
-			if (item.valueType === 'property') {
-				type = item.property;
-			}
-
-			return [structKey, type];
-		});
-		return dataType;
-	}
-	/*
-	const temp = computed(() => {
-		try {
-			return generate(attributeDatas.value, structName.value).toString();
-		} catch (e) {
-			return 'Error';
-		}
-	});
-
-	const onAddAttributeData = () => {
-		attributeDatas.value.push({
-			nameType: null,
-			name: '',
-			selectedSourceName: '',
-			attributes: [],
-			valueType: '',
-			stringMin: -1,
-			stringMax: -1,
-			numberValue: '',
-			property: '',
-		});
-	};*/
 
 	const test = ref(
 		(() => {
@@ -163,48 +39,7 @@
 			<div
 				class="flex-grow p-10 relative overflow-y-auto overflow-x-hidden h-full"
 			>
-				<div class="flex gap-3">
-					<VaChip
-						outline
-						square
-						color="rgb(34, 229, 164)"
-						readonly
-					>
-						struct
-					</VaChip>
-					<VaInput
-						placeholder="struct的名稱"
-						v-model="structName"
-						type="string"
-						immediate-validation
-						:rules="[(v) => v.length > 0]"
-					/>
-					<div class="inline text-2xl ml-10 text-zinc-50">{</div>
-				</div>
-				<!--
-				<div
-					class="flex flex-col ml-10 p-5"
-					v-for="(attributeData, index) in attributeDatas"
-				>
-				
-					<Test
-						:key="index"
-						:attributeData="attributeData"
-					>
-					</Test>
-				</div>
-				<VaButton
-					preset="primary"
-					border-color="rgb(34, 229, 164)"
-					@click="onAddAttributeData"
-				>
-					+
-				</VaButton>
-				-->
-				<div>
-					<struct v-model:strcut="test"></struct>
-				</div>
-				<div class="text-2xl text-zinc-50">}</div>
+				<struct v-model:strcut="test"></struct>
 			</div>
 			<div class="w-1/5 flex *:m-0 shadow-2xl bg-gray-400 bg-opacity-30">
 				<VaTextarea
