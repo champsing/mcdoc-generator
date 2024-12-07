@@ -5,6 +5,4 @@ import { createVuesticEssential } from "vuestic-ui";
 import "vuestic-ui/styles/essential.css";
 import "vuestic-ui/styles/typography.css";
 
-createApp(App)
-    .use(createVuesticEssential())
-    .mount("#app");
+createApp(App).use(createVuesticEssential()).mount("#app");
