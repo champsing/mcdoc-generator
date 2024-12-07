@@ -1,0 +1,115 @@
+<script setup lang="ts">
+	import { ref, watch } from 'vue';
+	import { ListType, BooleanType } from '@/mcdoc/types';
+	import { NumericRange } from '@/mcdoc/util';
+	import { VaSelect, VaCheckbox } from 'vuestic-ui';
+	import range from '../range.vue';
+	import any from './any.vue';
+	import number from './number.vue';
+	import string from './string.vue';
+	import primitivearray from './primitivearray.vue';
+	import boolean from './boolean.vue';
+	import list from './list.vue';
+	import {
+		ListTypeKind,
+		ListTypeToDefaultType,
+		ListTypeToMcdocType,
+	} from '@/composables/types';
+
+	const listdata = defineModel('list', {
+		type: ListType,
+		default: () => new ListType(),
+		required: true,
+	});
+
+	const listTypes = Object.values(ListTypeKind);
+	const listTypeTemp = ref(listTypes[0]);
+	const tempListType = ref(ListTypeToDefaultType[listTypeTemp.value]());
+
+	watch(
+		listTypeTemp,
+		() => {
+			console.log('Changed listTypeTemp');
+			tempListType.value = new ListTypeToMcdocType[listTypeTemp.value]();
+		},
+		{ immediate: true, deep: Infinity },
+	);
+
+	watch(
+		tempListType,
+		() => {
+			console.log('Changed listTypeTemp', tempListType.value);
+			listdata.value.elementType = tempListType.value;
+		},
+		{ immediate: true, deep: Infinity },
+	);
+
+	const rangeData = ref(new NumericRange());
+	watch(
+		rangeData,
+		() => {
+			console.log('Changed range', range.value);
+			listdata.value.lengthRange = rangeData.value;
+		},
+		{ immediate: true, deep: Infinity },
+	);
+
+	const isRange = ref(false);
+	watch(
+		isRange,
+		() => {
+			console.log('Changed isRange', isRange.value);
+			listdata.value.lengthRange = isRange.value ? rangeData.value : undefined;
+		},
+		{ immediate: true },
+	);
+</script>
+
+<template>
+	<div class="flex flex-col">
+		<div class="flex flex-row">
+			<VaSelect
+				:options="listTypes"
+				v-model="listTypeTemp"
+			></VaSelect>
+			<VaCheckbox v-model="isRange"> </VaCheckbox>
+			<range
+				v-if="isRange"
+				v-model:range="rangeData"
+			></range>
+		</div>
+		<div class="">
+			<!--
+			<component
+				:is="ListTypeToComponent[listTypeTemp]"
+				v-model="tempListType"
+			></component>
+      
+      -->
+			<any
+				v-model:any="tempListType"
+				v-if="listTypeTemp === ListTypeKind.Any"
+			></any>
+			<boolean
+				v-model:boolean="(tempListType as BooleanType)"
+				v-if="listTypeTemp === ListTypeKind.Boolean"
+			></boolean>
+			<list
+				v-model:list="(tempListType as ListType)"
+				v-if="listTypeTemp === ListTypeKind.List"
+			></list>
+			<number
+				v-model:number="tempListType"
+				v-if="listTypeTemp === ListTypeKind.Number"
+			></number>
+			<primitivearray
+				v-model:primitivearray="tempListType"
+				v-if="listTypeTemp === ListTypeKind.PrimitiveArray"
+			></primitivearray>
+			<string
+				v-model:string="tempListType"
+				v-if="listTypeTemp === ListTypeKind.String"
+			></string>
+		</div>
+	</div>
+</template>

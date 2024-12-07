@@ -11,7 +11,6 @@
 	import Test, { AttributeData } from './components/test.vue';
 	import { computed, ref } from 'vue';
 	import {
-		IndexedType,
 		NumericType,
 		StringType,
 		StructKey,
@@ -19,6 +18,7 @@
 	} from './mcdoc/types';
 	import { Attribute } from './mcdoc/attribute';
 	import { NumericRange, RangeKind } from './mcdoc/util';
+	import struct from './components/values/struct.vue';
 
 	useColors().applyPreset('dark');
 
@@ -107,8 +107,8 @@
 		});
 		return dataType;
 	}
-
-	const genratedResult = computed(() => {
+	/*
+	const temp = computed(() => {
 		try {
 			return generate(attributeDatas.value, structName.value).toString();
 		} catch (e) {
@@ -128,8 +128,24 @@
 			numberValue: '',
 			property: '',
 		});
-	};
+	};*/
 
+	const test = ref(
+		(() => {
+			let struct = new StructType();
+			struct.mapping = [];
+			return struct;
+		})(),
+	);
+
+	const genratedResult = computed(() => {
+		try {
+			console.log(test.value);
+			return test.value.toString();
+		} catch (e) {
+			return 'Error';
+		}
+	});
 	/*
 	let property = defineModel('filterStatus', {
 		default: null,
@@ -165,10 +181,12 @@
 					/>
 					<div class="inline text-2xl ml-10 text-zinc-50">{</div>
 				</div>
+				<!--
 				<div
 					class="flex flex-col ml-10 p-5"
 					v-for="(attributeData, index) in attributeDatas"
 				>
+				
 					<Test
 						:key="index"
 						:attributeData="attributeData"
@@ -182,6 +200,10 @@
 				>
 					+
 				</VaButton>
+				-->
+				<div>
+					<struct v-model:strcut="test"></struct>
+				</div>
 				<div class="text-2xl text-zinc-50">}</div>
 			</div>
 			<div class="w-1/5 flex *:m-0 shadow-2xl bg-gray-400 bg-opacity-30">

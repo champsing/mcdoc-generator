@@ -61,7 +61,7 @@ export class BooleanType extends SimpleType {
 }
 
 // 定義數值類型的可能種類集合
-const numericTypeKinds = new Set([
+export const numericTypeKinds = new Set([
 	'byte',
 	'short',
 	'int',
@@ -114,7 +114,11 @@ export class StringType extends McdocType {
 }
 
 // 定義原始數組元素的可能種類集合
-const primitiveArrayElementKinds = new Set(['byte', 'int', 'long'] as const);
+export const primitiveArrayElementKinds = new Set([
+	'byte',
+	'int',
+	'long',
+] as const);
 export type PrimitiveArrayElementKind =
 	typeof primitiveArrayElementKinds extends Set<infer V> ? V : never;
 
@@ -174,28 +178,28 @@ export class ListType extends NoAttributeType {
 
 // 表示結構體類型的類別，包含鍵值對的映射
 export class StructType extends NoAttributeType {
-	#name: string;
+	private _name: string;
 	// Key-value pairs
 	mapping: [StructKey, McdocType][];
 
 	constructor() {
 		super();
-		this.#name = '';
+		this._name = '';
 		this.mapping = [];
 	}
 
 	get name() {
-		return this.#name;
+		return this._name;
 	}
 	set name(name: string) {
-		IdentifierType.removeIdentifier(this.#name);
+		IdentifierType.removeIdentifier(this._name);
 		IdentifierType.addIdentifier(name);
-		this.#name = name;
+		this._name = name;
 	}
 
 	// 當物件被移除時的處理
 	onRemoved(): void {
-		IdentifierType.removeIdentifier(this.#name);
+		IdentifierType.removeIdentifier(this._name);
 	}
 
 	validateField(): boolean {
@@ -203,7 +207,7 @@ export class StructType extends NoAttributeType {
 	}
 
 	toString(indentLevel = 0): string {
-		const nameStr = this.#name ? `${this.#name} ` : '';
+		const nameStr = this._name ? `${this._name} ` : '';
 		if (this.mapping.length === 0) {
 			return `struct ${nameStr}{}`;
 		}
