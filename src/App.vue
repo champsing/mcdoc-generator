@@ -98,10 +98,8 @@
 					<Test
 						:key="index"
 						:attributeData="attributeData[index]"
-						@update:attributeData="
-							(value:Struct) => (attributeData[index] = value)
-						"
-					/>
+					>
+					</Test>
 				</div>
 				<VaButton
 					preset="primary"
