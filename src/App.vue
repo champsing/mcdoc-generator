@@ -7,7 +7,7 @@
 
 	const test = ref('');
 
-	const genratedResult = computed(() => {
+	const generatedResult = computed(() => {
 		return test.value;
 	});
 	/*
@@ -31,11 +31,11 @@
 			</div>
 			<div class="w-1/3 flex *:m-0 shadow-2xl bg-gray-800 bg-opacity-20">
 				<VaTextarea
-					v-model="genratedResult"
+					v-model="generatedResult"
 					disabled
 					class="flex-grow bg-transparent outline-none border-none select-text text-white"
 				>
-					{{ genratedResult }}
+					{{ generatedResult }}
 				</VaTextarea>
 				<div
 					class="absolute bottom-0 p-4 pr-0 select-none pointer-events-none right-0"
@@ -56,7 +56,7 @@
 									(e) => {
 										const navigator = e.view.navigator;
 										if (navigator) {
-											navigator.clipboard.writeText(genratedResult);
+											navigator.clipboard.writeText(generatedResult);
 										}
 									}
 								"
