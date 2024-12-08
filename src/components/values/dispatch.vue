@@ -51,11 +51,13 @@
 </script>
 
 <template>
-	<div class="flex flex-col bg-primary rounded-lg">
-		<div class="m-4">
+	<div
+		class="flex flex-col bg-primary rounded-lg *:max-w-min border-2 border-primary"
+	>
+		<div class="m-4 flex flex-ro gap-2">
 			<VaChip
 				outline
-				color="#273952"
+				color="#FFF"
 				square
 				size="medium"
 				readonly
@@ -71,17 +73,26 @@
 					}
 				"
 				>+
-			</VaButton> </div
-		><div
-			class="flex flex-row ml-8 bg-secondary p-2 rounded-lg items-center"
+			</VaButton>
+		</div>
+		<div
+			class="flex flex-row ml-8 bg-secondary p-2 rounded-lg items-center border-2 border-secondary"
 			v-if="keys.length > 0"
 		>
-			<p>Key :</p>
+			<VaChip
+				outline
+				color="#FFF"
+				square
+				size="medium"
+				readonly
+				>Key
+			</VaChip>
 			<div class="flex flex-col">
 				<div v-for="(_, index) in keys">
-					<div class="flex flex-row ml-2 gap-1">
+					<div class="flex flex-row ml-2 gap-1 text-background">
 						<VaSelect
-							color="#38556A"
+							
+							color="#000"
 							v-model="keys[index].keyType"
 							:options="avliableKeys"
 						></VaSelect>
@@ -103,9 +114,11 @@
 				</div>
 			</div>
 		</div>
-		<structvalue
-			class="ml-24 rounded-lg bg-secondary p-4 m-2"
-			v-model:structvalue="type"
-		></structvalue>
+		<div class="flex flex-row ml-24 m-2 rounded-lg">
+			<structvalue
+				class="bg-secondary"
+				v-model:structvalue="type"
+			></structvalue>
+		</div>
 	</div>
 </template>

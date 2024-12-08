@@ -67,18 +67,23 @@
 
 <template>
 	<div class="flex flex-col ml-8">
-		<div class="flex flex-row">
+		<div class="flex flex-row items-start">
 			<VaSelect
 				:options="listTypes"
 				v-model="listTypeTemp"
 			></VaSelect>
-			<VaCheckbox v-model="isRange"> </VaCheckbox>
+			<VaCheckbox
+				v-model="isRange"
+				class="min-w-max"
+				label="Is List have length"
+			>
+			</VaCheckbox>
 			<range
 				v-if="isRange"
 				v-model:range="rangeData"
 			></range>
 		</div>
-		<div class="">
+		<div class=" border-2 border-tertiary rounded-lg p-2">
 			<!--
 			<component
 				:is="ListTypeToComponent[listTypeTemp]"

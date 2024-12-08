@@ -46,11 +46,11 @@
 </script>
 
 <template>
-	<div class="flex flex-col *:items-center bg-primary rounded-lg">
+	<div class="flex flex-col *:items-center bg-primary rounded-lg border">
 		<div class="flex flex-row m-2">
 			<VaChip
 				outline
-				color="#273952"
+				color="#FFF"
 				square
 				size="medium"
 				readonly
@@ -72,7 +72,7 @@
 			v-for="(_, index) in mapping"
 			class="flex ml-8"
 		>
-			<div class="flex flex-col ml-8 p-4 bg-secondary rounded-lg m-2">
+			<div class="flex flex-col ml-8 p-4 bg-secondary rounded-lg m-2 border-2 border-secondary">
 				<div class="flex items-center">
 					<structkey v-model:structkey="mapping[index].key"></structkey>
 				</div>

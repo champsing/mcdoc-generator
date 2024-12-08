@@ -25,7 +25,7 @@
 	<div class="h-svh flex flex-col relative">
 		<div class="overflow-hidden relative flex-grow flex flex-row">
 			<div
-				class="flex-grow p-10 relative overflow-y-auto overflow-x-auto h-full"
+				class="flex-grow p-10 relative overflow-auto h-full"
 			>
 				<startpoint v-model:result="test"></startpoint>
 			</div>
@@ -33,7 +33,7 @@
 				<VaTextarea
 					v-model="generatedResult"
 					disabled
-					class="flex-grow bg-transparent outline-none border-none select-text text-white"
+					class="flex-grow bg-transparent outline-none border-none select-text text-white whitespace-pre"
 				>
 					{{ generatedResult }}
 				</VaTextarea>

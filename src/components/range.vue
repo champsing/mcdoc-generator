@@ -21,7 +21,7 @@
 </script>
 
 <template>
-	<div class="flex flex-col ml-8">
+	<div class="flex flex-col ml-8 border-2 border-tertiary p-2 rounded-lg">
 		<VaInput
 			preset="primary"
 			type="number"

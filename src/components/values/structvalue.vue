@@ -51,17 +51,15 @@
 </script>
 
 <template>
-	<div class="flex flex-col p-4 rounded-lg *:m-2">
+	<div class="flex flex-col p-4 rounded-lg *:m-2 bg-tertiary border-2 border-tertiary">
 		<div class="flex flex-row">
 			<VaSelect
-				color="#B6FFF9"
+				color="#000"
 				:options="allTypes"
 				v-model="structTypeTemp"
 			></VaSelect>
 		</div>
-		<div
-			class="flex flex-row items-center bg-quaternary text-black p-4 rounded-lg"
-		>
+		<div class="flex flex-row items-center p-4 rounded-lg">
 			<any
 				v-model:any="(tempstructValueType as AnyType)"
 				v-if="structTypeTemp === AllTypesKind.Any"

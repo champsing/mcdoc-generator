@@ -33,6 +33,7 @@
 			result.value = types.value
 				.map((type) => type.value.toString())
 				.join('\n');
+      console.log(result.value)
 		},
 		{ immediate: true, deep: Infinity },
 	);
@@ -70,7 +71,7 @@
 
 		<div
 			v-for="(_, index) in types"
-			class="*:m-4 text-black overflow-visible"
+			class="*:m-4 text-white overflow-visible"
 		>
 			<div class="ml-8 bg-primary rounded-lg">
 				<dispatch
@@ -91,7 +92,7 @@
 					"
 					icon="clear"
           color="#273952"
-					backgroundOpacity="0"
+					backgroundOpacity="0.5"
 				></VaButton>
 			</div>
 		</div>
