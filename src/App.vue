@@ -9,12 +9,6 @@
 
 	const genratedResult = computed(() => {
 		return test.value;
-		try {
-			console.log(test.value);
-			return test.value.toString();
-		} catch (e) {
-			return 'Error';
-		}
 	});
 	/*
 	let property = defineModel('filterStatus', {
@@ -35,11 +29,11 @@
 			>
 				<startpoint v-model:result="test"></startpoint>
 			</div>
-			<div class="w-1/5 flex *:m-0 shadow-2xl bg-gray-400 bg-opacity-30">
+			<div class="w-1/3 flex *:m-0 shadow-2xl bg-gray-800 bg-opacity-20">
 				<VaTextarea
 					v-model="genratedResult"
 					disabled
-					class="flex-grow bg-transparent outline-none border-none select-text"
+					class="flex-grow bg-transparent outline-none border-none select-text text-white"
 				>
 					{{ genratedResult }}
 				</VaTextarea>

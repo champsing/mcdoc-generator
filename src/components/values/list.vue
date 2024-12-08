@@ -1,6 +1,6 @@
 <script setup lang="ts">
 	import { ref, watch } from 'vue';
-	import { ListType, BooleanType } from '@/mcdoc/types';
+	import { ListType, BooleanType, AnyType } from '@/mcdoc/types';
 	import { NumericRange } from '@/mcdoc/util';
 	import { VaSelect, VaCheckbox } from 'vuestic-ui';
 	import range from '../range.vue';
@@ -87,7 +87,7 @@
       
       -->
 			<any
-				v-model:any="tempListType"
+				v-model:any="(tempListType as AnyType)"
 				v-if="listTypeTemp === ListTypeKind.Any"
 			></any>
 			<boolean

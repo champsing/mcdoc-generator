@@ -36,6 +36,7 @@
 <template>
 	<div class="flex">
 		<VaSelect
+			color="#B6FFF9"
 			:options="keyTypes"
 			v-model="keyType"
 		></VaSelect>

@@ -2,7 +2,7 @@
 	import { defineModel, ref, watch } from 'vue';
 	import { AnyType, McdocType } from '@/mcdoc/types';
 	import { DispatchStatement } from '@/mcdoc/dispatch';
-	import { VaSelect, VaInput, VaButton } from 'vuestic-ui';
+	import { VaSelect, VaInput, VaButton, VaChip } from 'vuestic-ui';
 	import structvalue from './structvalue.vue';
 
 	type Keys = {
@@ -51,11 +51,20 @@
 </script>
 
 <template>
-	<div class="flex flex-col">
-		<div>
-			Dispatch
+	<div class="flex flex-col bg-primary rounded-lg">
+		<div class="m-4">
+			<VaChip
+				outline
+				color="#273952"
+				square
+				size="medium"
+				readonly
+				>Dispatch
+			</VaChip>
 			<VaInput v-model="dispatcher"></VaInput>
 			<VaButton
+				preset="primary"
+				color="rgb(164, 255, 164)"
 				@click="
 					() => {
 						keys.push({ keyType: 'Input', key: '' });
@@ -63,12 +72,16 @@
 				"
 				>+
 			</VaButton> </div
-		><div class="flex flex-row ml-8">
-			Key :
+		><div
+			class="flex flex-row ml-8 bg-secondary p-2 rounded-lg items-center"
+			v-if="keys.length > 0"
+		>
+			<p>Key :</p>
 			<div class="flex flex-col">
 				<div v-for="(_, index) in keys">
-					<div class="flex flex-row ml-2">
+					<div class="flex flex-row ml-2 gap-1">
 						<VaSelect
+							color="#38556A"
 							v-model="keys[index].keyType"
 							:options="avliableKeys"
 						></VaSelect>
@@ -78,19 +91,20 @@
 						>
 						</VaInput>
 						<VaButton
+							icon="clear"
+							backgroundOpacity="0"
 							@click="
 								() => {
 									keys.splice(index, 1);
 								}
 							"
-							>-</VaButton
-						>
+						></VaButton>
 					</div>
 				</div>
 			</div>
 		</div>
 		<structvalue
-			class="ml-24"
+			class="ml-24 rounded-lg bg-secondary p-4 m-2"
 			v-model:structvalue="type"
 		></structvalue>
 	</div>

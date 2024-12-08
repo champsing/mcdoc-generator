@@ -28,7 +28,7 @@
 </script>
 
 <template>
-	<div class="flex flex-row *:items-center text-center items-center">
+	<div class="flex flex-row *:items-center text-center items-center overflow-hidden overflow-x-auto">
 		Union
 			<VaButton
 				preset="primary"
@@ -38,7 +38,7 @@
 			>
 		<div
 			v-for="(_, index) in mapping"
-			class="flex *:items-center"
+			class="flex *:items-center "
 		>
 			<div>
 				<structvalue v-model:structvalue="mapping[index]"></structvalue>

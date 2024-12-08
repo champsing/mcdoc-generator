@@ -30,7 +30,9 @@
 	watch(
 		types,
 		() => {
-			result.value = types.value.map((type) => type.value.toString()).join('\n');
+			result.value = types.value
+				.map((type) => type.value.toString())
+				.join('\n');
 		},
 		{ immediate: true, deep: Infinity },
 	);
@@ -68,18 +70,30 @@
 
 		<div
 			v-for="(_, index) in types"
-			class="ml-8"
+			class="*:m-4 text-black overflow-visible"
 		>
-			<dispatch
-				v-if="types[index].type === 'Dispatch'"
-				v-model:dispatch="(types[index].value as DispatchStatement)"
-			>
-			</dispatch>
-			<struct
-				v-else
-				v-model:struct="(types[index].value as StructType)"
-			>
-			</struct>
+			<div class="ml-8 bg-primary rounded-lg">
+				<dispatch
+					v-if="types[index].type === 'Dispatch'"
+					v-model:dispatch="(types[index].value as DispatchStatement)"
+				>
+				</dispatch>
+				<struct
+					v-else
+					v-model:struct="(types[index].value as StructType)"
+				>
+				</struct>
+				<VaButton
+					@click="
+						() => {
+							types.splice(index, 1);
+						}
+					"
+					icon="clear"
+          color="#273952"
+					backgroundOpacity="0"
+				></VaButton>
+			</div>
 		</div>
 	</div>
 </template>
