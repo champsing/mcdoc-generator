@@ -37,20 +37,25 @@
 </script>
 
 <template>
-	<div class="flex">
-		<VaSelect
-			v-model:model-value="number.kind"
-			:options="numberTypes"
-		>
-		</VaSelect>
-		<VaCheckbox
-			v-model="isRange"
-			label="number range"
-		>
-		</VaCheckbox>
-		<range
-			v-if="isRange"
-			v-model:range="rangeValue"
-		></range>
+	<div class="flex ml-8 flex-col">
+		<div>
+			<VaSelect
+				v-model:model-value="number.kind"
+				:options="numberTypes"
+			>
+			</VaSelect>
+			<VaCheckbox
+				v-model="isRange"
+				label="number range"
+			>
+			</VaCheckbox>
+		</div>
+		<div class="flex flex-col">
+			<range
+				class="ml-8"
+				v-if="isRange"
+				v-model:range="rangeValue"
+			></range>
+		</div>
 	</div>
 </template>

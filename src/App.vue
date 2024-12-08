@@ -1,20 +1,14 @@
 <script setup lang="ts">
 	import { useColors, VaButton, VaPopover, VaTextarea } from 'vuestic-ui';
 	import { computed, ref } from 'vue';
-	import { StructType } from './mcdoc/types';
-	import struct from './components/values/struct.vue';
+	import startpoint from './components/startpoint.vue';
 
 	useColors().applyPreset('dark');
 
-	const test = ref(
-		(() => {
-			let struct = new StructType();
-			struct.mapping = [];
-			return struct;
-		})(),
-	);
+	const test = ref('');
 
 	const genratedResult = computed(() => {
+		return test.value;
 		try {
 			console.log(test.value);
 			return test.value.toString();
@@ -37,9 +31,9 @@
 	<div class="h-svh flex flex-col relative">
 		<div class="overflow-hidden relative flex-grow flex flex-row">
 			<div
-				class="flex-grow p-10 relative overflow-y-auto overflow-x-hidden h-full"
+				class="flex-grow p-10 relative overflow-y-auto overflow-x-auto h-full"
 			>
-				<struct v-model:strcut="test"></struct>
+				<startpoint v-model:result="test"></startpoint>
 			</div>
 			<div class="w-1/5 flex *:m-0 shadow-2xl bg-gray-400 bg-opacity-30">
 				<VaTextarea

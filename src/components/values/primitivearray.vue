@@ -20,12 +20,12 @@
 </script>
 
 <template>
-	<div class="flex">
+	<div class="flex flex-col ml-8">
 		<VaSelect
 			:options="arrayTypes"
 			v-model:model-value="array.elementKind"
 		></VaSelect>
-		<div>
+		<div class="flex flex-col *:flex *:flex-row ml-8">
 			<div>
 				Lengh Range
 				<range v-model:range="array.lengthRange"></range>

@@ -28,18 +28,17 @@
 </script>
 
 <template>
-	<div class="flex flex-col *:items-center">
-		<div class="flex flex-row">
+	<div class="flex flex-row *:items-center text-center items-center">
+		Union
 			<VaButton
 				preset="primary"
 				color="rgb(164, 255, 164)"
 				@click="handleAdd"
 				>+</VaButton
 			>
-		</div>
 		<div
 			v-for="(_, index) in mapping"
-			class="flex *:flex *:flex-row *:items-center"
+			class="flex *:items-center"
 		>
 			<div>
 				<structvalue v-model:structvalue="mapping[index]"></structvalue>

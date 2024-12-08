@@ -134,21 +134,29 @@ export const AllTypesToType = {
 	[AllTypesKind.Any]: () => new AnyType(),
 	[AllTypesKind.Boolean]: () => new BooleanType(),
 	[AllTypesKind.Number]: () => new NumericType(),
-	[AllTypesKind.PrimitiveArray]: () => {
+	[AllTypesKind.PrimitiveArray]: (): PrimitiveArray => {
 		let array = new PrimitiveArray();
 		array.elementKind = primitiveArrayElementKinds[0];
 		array.lengthRange = new NumericRange();
 		array.valueRange = new NumericRange();
 		return array;
 	},
-	[AllTypesKind.String]: () => {
+	[AllTypesKind.String]: (): StringType => {
 		let string = new StringType();
 		string.lengthRange = new NumericRange();
 		return string;
 	},
 	[AllTypesKind.List]: () => new ListType(),
-	[AllTypesKind.Struct]: () => new StructType(),
+	[AllTypesKind.Struct]: (): StringType => {
+		let struct = new StructType();
+		struct.mapping = [];
+		return struct;
+	},
 	[AllTypesKind.Union]: () => new UnionType(),
-	[AllTypesKind.Identifier]: () => new IdentifierType(),
+	[AllTypesKind.Identifier]: (): IdentifierType => {
+		const type = new IdentifierType();
+		type.identifier = '';
+		return type;
+	},
 	[AllTypesKind.Indexed]: () => new IndexedType(),
 };

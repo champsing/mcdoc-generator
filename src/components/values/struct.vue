@@ -6,7 +6,7 @@
 	import structkey from './structkey.vue';
 	import structvalue from './structvalue.vue';
 
-	const strcut = defineModel('strcut', {
+	const struct = defineModel('struct', {
 		type: StructType,
 		default: () => {
 			let struct = new StructType();
@@ -19,7 +19,7 @@
 	watch(
 		name,
 		(newName) => {
-			strcut.value.name = newName;
+			struct.value.name = newName;
 		},
 		{ immediate: true },
 	);
@@ -37,7 +37,7 @@
 		mapping,
 		(newMapping) => {
 			console.log('Changed mapping', newMapping);
-			strcut.value.mapping = newMapping.map((value) => {
+			struct.value.mapping = newMapping.map((value) => {
 				return [value.key, value.value];
 			});
 		},
@@ -46,7 +46,7 @@
 </script>
 
 <template>
-	<div class="flex flex-col *:items-center">
+	<div class="flex flex-col *:items-center ml-8">
 		<div class="flex flex-row">
 			Struct
 			<VaInput
@@ -63,12 +63,12 @@
 		</div>
 		<div
 			v-for="(_, index) in mapping"
-			class="flex *:flex *:flex-row *:items-center"
+			class="flex ml-8"
 		>
-			<div>
+			<div class="flex flex-col ml-8">
 				<structkey v-model:structkey="mapping[index].key"></structkey>
 				<structvalue v-model:structvalue="mapping[index].value"></structvalue>
-				<VaCheckbox v-model="mapping[index].optional"></VaCheckbox>
+				<!--<VaCheckbox v-model="mapping[index].optional" label="optional"></VaCheckbox>-->
 			</div>
 		</div>
 	</div>

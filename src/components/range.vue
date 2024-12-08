@@ -21,7 +21,7 @@
 </script>
 
 <template>
-	<div class="flex">
+	<div class="flex flex-col ml-8">
 		<VaInput
 			preset="primary"
 			type="number"

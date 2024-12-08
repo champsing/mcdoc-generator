@@ -66,7 +66,7 @@
 </script>
 
 <template>
-	<div class="flex flex-col">
+	<div class="flex flex-col ml-8">
 		<div class="flex flex-row">
 			<VaSelect
 				:options="listTypes"
