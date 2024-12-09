@@ -56,16 +56,6 @@
 				</VaChip>
 			</div>
 			<div class="flex flex-row">
-				<div>
-					<VaChip
-						outline
-						color="#FFF"
-						square
-						size="medium"
-						readonly
-						>Attributes:
-					</VaChip>
-				</div>
 				<attributes v-model:attributes="attributeData" />
 			</div>
 

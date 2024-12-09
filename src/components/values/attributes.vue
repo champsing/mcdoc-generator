@@ -17,8 +17,8 @@
 </script>
 
 <template>
-	<div class="flex flex-row">
-		<div class="flex">
+	<div class="flex flex-row items-center">
+		<div class="flex flex-row items-center">
 			<VaChip
 				class="flex-shrink-0 self-start"
 				outline
