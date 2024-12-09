@@ -2,7 +2,7 @@
 	import { ref, watch } from 'vue';
 	import { ListType, BooleanType, AnyType } from '@/mcdoc/types';
 	import { NumericRange } from '@/mcdoc/util';
-	import { VaSelect, VaCheckbox } from 'vuestic-ui';
+	import { VaSelect, VaCheckbox, VaChip } from 'vuestic-ui';
 	import range from '../range.vue';
 	import any from './any.vue';
 	import number from './number.vue';
@@ -67,23 +67,33 @@
 
 <template>
 	<div class="flex flex-col ml-8">
-		<div class="flex flex-row items-start">
+		<div class="flex flex-col items-start">
 			<VaSelect
 				:options="listTypes"
 				v-model="listTypeTemp"
 			></VaSelect>
-			<VaCheckbox
-				v-model="isRange"
-				class="min-w-max"
-				label="Is List have length"
-			>
-			</VaCheckbox>
+			<div class="flex flex-row">
+				<VaChip
+					class="flex-shrink-0 self-start"
+					outline
+					color="#FFF"
+					square
+					size="medium"
+					readonly
+					>Is List have length limit?
+				</VaChip>
+				<VaCheckbox
+					v-model="isRange"
+					class="min-w-max"
+				>
+				</VaCheckbox>
+			</div>
 			<range
 				v-if="isRange"
 				v-model:range="rangeData"
 			></range>
 		</div>
-		<div class=" border-2 border-tertiary rounded-lg p-2">
+		<div class="border-2 border-tertiary rounded-lg p-2">
 			<!--
 			<component
 				:is="ListTypeToComponent[listTypeTemp]"

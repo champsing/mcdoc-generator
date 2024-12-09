@@ -51,10 +51,12 @@
 </script>
 
 <template>
-	<div class="flex flex-col p-4 rounded-lg *:m-2 bg-tertiary border-2 border-tertiary">
+	<div
+		class="flex flex-col p-4 rounded-lg *:m-2 bg-tertiary border-2 border-tertiary"
+	>
 		<div class="flex flex-row">
 			<VaSelect
-				color="#000"
+				color="#FFF"
 				:options="allTypes"
 				v-model="structTypeTemp"
 			></VaSelect>

@@ -72,7 +72,9 @@
 			v-for="(_, index) in mapping"
 			class="flex ml-8"
 		>
-			<div class="flex flex-col ml-8 p-4 bg-secondary rounded-lg m-2 border-2 border-secondary">
+			<div
+				class="flex flex-col ml-8 p-4 bg-secondary rounded-lg m-2 border-2 border-secondary"
+			>
 				<div class="flex items-center">
 					<structkey v-model:structkey="mapping[index].key"></structkey>
 				</div>

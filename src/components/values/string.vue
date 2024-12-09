@@ -2,7 +2,9 @@
 	import { ref, watch } from 'vue';
 	import { StringType } from '@/mcdoc/types';
 	import { NumericRange } from '@/mcdoc/util';
-	import { VaCheckbox } from 'vuestic-ui';
+	import { VaCheckbox, VaChip } from 'vuestic-ui';
+	import { Attribute } from '@/mcdoc/attribute';
+	import attributes from './attributes.vue';
 	import range from '../range.vue';
 
 	const string = defineModel('string', {
@@ -28,16 +30,57 @@
 		},
 		{ immediate: true },
 	);
+
+	const attributeData = ref<Attribute[]>([]);
+	watch(
+		attributeData,
+		(value) => {
+			console.log('attributeData', value);
+			string.value.attributes = value;
+		},
+		{ deep: true, immediate: true },
+	);
 </script>
 
 <template>
-	<div class="flex">
-    String
-		<VaCheckbox
-			v-model="isRange"
-			label="have lenght range"
-		>
-		</VaCheckbox>
+	<div class="flex flex-col">
+		<div class="flex flex-col">
+			<div>
+				<VaChip
+					outline
+					color="#FFF"
+					square
+					size="medium"
+					readonly
+					>String
+				</VaChip>
+			</div>
+			<div class="flex flex-row">
+				<div>
+					<VaChip
+						outline
+						color="#FFF"
+						square
+						size="medium"
+						readonly
+						>Attributes:
+					</VaChip>
+				</div>
+				<attributes v-model:attributes="attributeData" />
+			</div>
+
+			<div class="flex items-center">
+				<VaChip
+					outline
+					color="#FFF"
+					square
+					size="medium"
+					readonly
+					>have lenght range
+				</VaChip>
+				<VaCheckbox v-model="isRange"> </VaCheckbox>
+			</div>
+		</div>
 		<range
 			v-if="isRange"
 			v-model:range="lengthRange"

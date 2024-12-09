@@ -89,10 +89,9 @@
 			</VaChip>
 			<div class="flex flex-col">
 				<div v-for="(_, index) in keys">
-					<div class="flex flex-row ml-2 gap-1 text-background">
+					<div class="flex flex-row ml-2 gap-1">
 						<VaSelect
-							
-							color="#000"
+							color="#447766"
 							v-model="keys[index].keyType"
 							:options="avliableKeys"
 						></VaSelect>

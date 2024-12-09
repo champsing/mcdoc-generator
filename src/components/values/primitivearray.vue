@@ -2,6 +2,9 @@
 	import { PrimitiveArray, primitiveArrayElementKinds } from '@/mcdoc/types';
 	import { NumericRange } from '@/mcdoc/util';
 	import { VaSelect } from 'vuestic-ui';
+	import { Attribute } from '@/mcdoc/attribute';
+	import attributes from './attributes.vue';
+	import { ref, watch } from 'vue';
 	import range from '../range.vue';
 
 	const array = defineModel('primitivearray', {
@@ -17,6 +20,15 @@
 	});
 
 	const arrayTypes = Array.from(primitiveArrayElementKinds);
+	const attributeData = ref<Attribute[]>([]);
+	watch(
+		attributeData,
+		(value) => {
+			console.log('attributeData', value);
+			array.value.attributes = value;
+		},
+		{ deep: true, immediate: true },
+	);
 </script>
 
 <template>
@@ -25,6 +37,7 @@
 			:options="arrayTypes"
 			v-model:model-value="array.elementKind"
 		></VaSelect>
+		<attributes v-model:attributes="attributeData" />
 		<div class="flex flex-col *:flex *:flex-row ml-8">
 			<div>
 				Lengh Range

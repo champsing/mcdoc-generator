@@ -1,5 +1,5 @@
 <script setup lang="ts">
-	import { VaSelect, VaCheckbox } from 'vuestic-ui';
+	import { VaSelect, VaCheckbox,VaChip } from 'vuestic-ui';
 	import { defineModel, ref, watch } from 'vue';
 	import { NumericType, numericTypeKinds } from '@/mcdoc/types';
 	import { NumericRange, RangeKind } from '@/mcdoc/util';
@@ -44,11 +44,17 @@
 				:options="numberTypes"
 			>
 			</VaSelect>
-			<VaCheckbox
-				v-model="isRange"
-				label="number range"
-			>
-			</VaCheckbox>
+			<div class="flex items-center">
+				<VaChip
+					outline
+					color="#FFF"
+					square
+					size="medium"
+					readonly
+					>Is Number have range limit?
+				</VaChip>
+				<VaCheckbox v-model="isRange"> </VaCheckbox>
+			</div>
 		</div>
 		<div class="flex flex-col">
 			<range

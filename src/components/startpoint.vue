@@ -73,7 +73,7 @@
 			v-for="(_, index) in types"
 			class="*:m-4 text-white overflow-visible"
 		>
-			<div class="ml-8 bg-primary rounded-lg">
+			<div class="ml-8 bg-primary rounded-lg border-2 border-secondary *:border-0">
 				<dispatch
 					v-if="types[index].type === 'Dispatch'"
 					v-model:dispatch="(types[index].value as DispatchStatement)"
