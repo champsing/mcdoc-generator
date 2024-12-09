@@ -47,7 +47,7 @@
 
 <template>
 	<div class="flex flex-col *:items-center bg-primary rounded-lg border">
-		<div class="flex flex-row m-2">
+		<div class="flex flex-row m-2 gap-2">
 			<VaChip
 				outline
 				color="#FFF"
@@ -73,9 +73,9 @@
 			class="flex ml-8"
 		>
 			<div
-				class="flex flex-col ml-8 p-4 bg-secondary rounded-lg m-2 border-2 border-secondary"
+				class="flex flex-col ml-8 p-4 bg-secondary rounded-lg m-2 border-2 border-secondary pr-2"
 			>
-				<div class="flex items-center">
+				<div class="flex items-center pb-2">
 					<structkey v-model:structkey="mapping[index].key"></structkey>
 				</div>
 				<structvalue

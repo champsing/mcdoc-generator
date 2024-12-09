@@ -54,7 +54,7 @@
 	<div
 		class="flex flex-col bg-primary rounded-lg *:max-w-min border-2 border-primary"
 	>
-		<div class="m-4 flex flex-ro gap-2">
+		<div class="m-4 flex flex-ro gap-2 mb-0">
 			<VaChip
 				outline
 				color="#FFF"
@@ -63,7 +63,10 @@
 				readonly
 				>Dispatch
 			</VaChip>
-			<VaInput v-model="dispatcher"></VaInput>
+			<VaInput
+				v-model="dispatcher"
+				placeholder="Dispatcher"
+			></VaInput>
 			<VaButton
 				preset="primary"
 				color="rgb(164, 255, 164)"

@@ -27,7 +27,7 @@
 			<div
 				class="flex-grow p-10 relative overflow-auto h-full"
 			>
-				<startpoint v-model:result="test"></startpoint>
+				<startpoint class="min-w-max"v-model:result="test"></startpoint>
 			</div>
 			<div class="w-1/3 flex *:m-0 shadow-2xl bg-gray-800 bg-opacity-20">
 				<VaTextarea

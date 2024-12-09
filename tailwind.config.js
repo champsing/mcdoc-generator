@@ -9,9 +9,9 @@ export default {
 			},
 			colors: {
 				background: '#27272a',
-				primary: '#447766',
-				secondary: '#335566',
-				tertiary: '#555555',
+				primary: '#4477664D',
+				secondary: '#3355664D',
+				tertiary: '#5555554D',
 			},
 			borderColor: {
 				primary: '#66DD99',

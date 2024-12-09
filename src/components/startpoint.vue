@@ -33,7 +33,7 @@
 			result.value = types.value
 				.map((type) => type.value.toString())
 				.join('\n');
-      console.log(result.value)
+			console.log(result.value);
 		},
 		{ immediate: true, deep: Infinity },
 	);
@@ -41,7 +41,7 @@
 
 <template>
 	<div class="flex flex-col">
-		<div>
+		<div class="flex flex-row gap-2">
 			<VaSelect
 				v-model="selectedKey"
 				:options="avliableKeys"
@@ -73,7 +73,9 @@
 			v-for="(_, index) in types"
 			class="*:m-4 text-white overflow-visible"
 		>
-			<div class="ml-8 bg-primary rounded-lg border-2 border-secondary *:border-0">
+			<div
+				class="ml-8 rounded-lg border-2 border-secondary *:border-0 *:rounded-none overflow-visible"
+			>
 				<dispatch
 					v-if="types[index].type === 'Dispatch'"
 					v-model:dispatch="(types[index].value as DispatchStatement)"
@@ -84,16 +86,18 @@
 					v-model:struct="(types[index].value as StructType)"
 				>
 				</struct>
-				<VaButton
-					@click="
-						() => {
-							types.splice(index, 1);
-						}
-					"
-					icon="clear"
-          color="#273952"
-					backgroundOpacity="0.5"
-				></VaButton>
+				<div class="bg-primary">
+					<VaButton
+						@click="
+							() => {
+								types.splice(index, 1);
+							}
+						"
+						icon="clear"
+						color="#273952"
+						backgroundOpacity="0.5"
+					></VaButton>
+				</div>
 			</div>
 		</div>
 	</div>
