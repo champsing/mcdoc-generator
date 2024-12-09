@@ -66,9 +66,9 @@
 					square
 					size="medium"
 					readonly
-					>have lenght range
+					>have length range
 				</VaChip>
-				<VaCheckbox v-model="isRange"> </VaCheckbox>
+				<VaCheckbox v-model="isRange" class="checkbox-border"></VaCheckbox>
 			</div>
 		</div>
 		<range

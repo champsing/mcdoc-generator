@@ -6,11 +6,11 @@
 	import dispatch from './values/dispatch.vue';
 	import struct from './values/struct.vue';
 
-	type AvliableTypes = DispatchStatement | StructType;
-	type AvliableKeys = 'Struct' | 'Dispatch';
-	type AvliableTypesInArray = {
-		type: AvliableKeys;
-		value: AvliableTypes;
+	type AvailableTypes = DispatchStatement | StructType;
+	type AvailableKeys = 'Struct' | 'Dispatch';
+	type AvailableTypesInArray = {
+		type: AvailableKeys;
+		value: AvailableTypes;
 	};
 
 	const result = defineModel('result', {
@@ -19,9 +19,9 @@
 		required: true,
 	});
 
-	const avliableKeys = ['Struct', 'Dispatch'];
+	const availableKeys = ['Struct', 'Dispatch'];
 	const selectedKey = ref('Struct');
-	const types = ref<Array<AvliableTypesInArray>>([
+	const types = ref<Array<AvailableTypesInArray>>([
 		{
 			type: 'Dispatch',
 			value: new DispatchStatement(),
@@ -44,7 +44,7 @@
 		<div class="flex flex-row gap-2">
 			<VaSelect
 				v-model="selectedKey"
-				:options="avliableKeys"
+				:options="availableKeys"
 			></VaSelect>
 			<VaButton
 				@click="
@@ -76,6 +76,20 @@
 			<div
 				class="ml-8 rounded-lg border-2 border-secondary *:border-0 *:rounded-none overflow-visible"
 			>
+			<div class="bg-primary text-right">
+					<VaButton
+						@click="
+							() => {
+								types.splice(index, 1);
+							}
+						"
+						icon="clear"
+						color="rgb(244, 60, 60)"
+						backgroundOpacity="0"
+						hoverMaskColor="rgb(173, 1, 1)"
+						hoverOpacity="1"
+					/>
+				</div>
 				<dispatch
 					v-if="types[index].type === 'Dispatch'"
 					v-model:dispatch="(types[index].value as DispatchStatement)"
@@ -86,19 +100,14 @@
 					v-model:struct="(types[index].value as StructType)"
 				>
 				</struct>
-				<div class="bg-primary">
-					<VaButton
-						@click="
-							() => {
-								types.splice(index, 1);
-							}
-						"
-						icon="clear"
-						color="#273952"
-						backgroundOpacity="0.5"
-					></VaButton>
-				</div>
+				
 			</div>
 		</div>
 	</div>
 </template>
+
+<style>
+.checkbox-border {
+	--va-checkbox-square-border: solid 2px rgb(93, 134, 169);
+}
+</style>

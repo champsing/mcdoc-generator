@@ -9,9 +9,9 @@
 		required: true,
 	});
 	const identifiers = IdentifierType.identifiers;
-	const currnetIdentifier = ref(IdentifierType.identifiers[0]);
+	const currentIdentifier = ref(IdentifierType.identifiers[0]);
 	watch(
-		currnetIdentifier,
+		currentIdentifier,
 		(newIdentifier) => {
 			identifier.value.identifier = newIdentifier;
 		},
@@ -22,7 +22,7 @@
 <template>
 	Identifier Type:
 	<VaSelect
-		v-model="currnetIdentifier"
+		v-model="currentIdentifier"
 		:options="identifiers"
 	>
 	</VaSelect>

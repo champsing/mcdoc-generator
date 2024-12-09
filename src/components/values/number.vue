@@ -42,6 +42,7 @@
 			<VaSelect
 				v-model:model-value="number.kind"
 				:options="numberTypes"
+				placeholder="Number Type"
 			>
 			</VaSelect>
 			<div class="flex items-center">
@@ -53,7 +54,7 @@
 					readonly
 					>Is Number have range limit?
 				</VaChip>
-				<VaCheckbox v-model="isRange"> </VaCheckbox>
+				<VaCheckbox v-model="isRange" class="checkbox-border"> </VaCheckbox>
 			</div>
 		</div>
 		<div class="flex flex-col">

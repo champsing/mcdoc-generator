@@ -17,7 +17,7 @@
 	});
 
 	const dispatcher = ref('');
-	const avliableKeys = ['Input', '%unknown', '%none'];
+	const availableKeys = ['Input', '%unknown', '%none'];
 	const keys = ref<Keys[]>([]);
 	const type = ref<McdocType>(new AnyType());
 	watch(
@@ -96,22 +96,24 @@
 						<VaSelect
 							color="#447766"
 							v-model="keys[index].keyType"
-							:options="avliableKeys"
-						></VaSelect>
+							:options="availableKeys"
+						/>
 						<VaInput
 							v-if="keys[index].keyType === 'Input'"
 							v-model="keys[index].key"
-						>
-						</VaInput>
+						/>
 						<VaButton
 							icon="clear"
+							color="rgb(244, 60, 60)"
 							backgroundOpacity="0"
+							hoverMaskColor="rgb(173, 1, 1)"
+							hoverOpacity="1"
 							@click="
 								() => {
 									keys.splice(index, 1);
 								}
 							"
-						></VaButton>
+						/>
 					</div>
 				</div>
 			</div>
@@ -120,7 +122,7 @@
 			<structvalue
 				class="bg-secondary"
 				v-model:structvalue="type"
-			></structvalue>
+			/>
 		</div>
 	</div>
 </template>

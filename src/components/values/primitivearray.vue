@@ -36,11 +36,12 @@
 		<VaSelect
 			:options="arrayTypes"
 			v-model:model-value="array.elementKind"
+			placeholder="Data Type"
 		></VaSelect>
 		<attributes v-model:attributes="attributeData" />
 		<div class="flex flex-col *:flex *:flex-row ml-8">
 			<div>
-				Lengh Range
+				Length Range
 				<range v-model:range="array.lengthRange"></range>
 			</div>
 			<div>

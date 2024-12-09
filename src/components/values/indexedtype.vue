@@ -18,7 +18,7 @@
 	const staticKey = ref('');
 	const dynamicKey = ref('');
 	const identifiers = IdentifierType.identifiers;
-	const currnetIdentifier = ref(IdentifierType.identifiers[0]);
+	const currentIdentifier = ref(IdentifierType.identifiers[0]);
 
 	watchEffect(() => {
 		const key = indexedtype.value.index;
@@ -31,14 +31,14 @@
 		key.staticKey = staticKey.value;
 		key.dynamicKey = dynamicKey.value;
 		indexedtype.value.index = key;
-		indexedtype.value.dispatcher = currnetIdentifier.value;
+		indexedtype.value.dispatcher = currentIdentifier.value;
 	});
 </script>
 
 <template>
 	<div class="flex">
 		<VaSelect
-			v-model="currnetIdentifier"
+			v-model="currentIdentifier"
 			:options="identifiers"
 		></VaSelect>
 		<VaSelect

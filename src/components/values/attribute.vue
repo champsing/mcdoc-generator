@@ -46,6 +46,7 @@
 		></VaSelect>
 		<VaInput
 			v-model="value"
+			v-if="name == 'color' || name == 'dispatcher_key'"
 			:rules="[attributeRuleSet]"
 		>
 		</VaInput>

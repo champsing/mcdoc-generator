@@ -16,12 +16,14 @@
 <template>
 	<div class="flex">
 		<VaCheckbox
+			class="checkbox-border"
 			preset="primary"
 			v-model="range.isLeftExclusive"
 			placeholder="is left exclusive"
 			label="is left exclusive"
 		/>
 		<VaCheckbox
+			class="checkbox-border"
 			preset="primary"
 			type="number"
 			v-model="range.isRightExclusive"

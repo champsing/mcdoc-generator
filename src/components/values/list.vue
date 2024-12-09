@@ -84,7 +84,7 @@
 				</VaChip>
 				<VaCheckbox
 					v-model="isRange"
-					class="min-w-max"
+					class="checkbox-border min-w-max"
 				>
 				</VaCheckbox>
 			</div>
