@@ -52,7 +52,7 @@
 					square
 					size="medium"
 					readonly
-					>Is Number have range limit?
+					>Does Number have range limit?
 				</VaChip>
 				<VaCheckbox v-model="isRange" class="checkbox-border"> </VaCheckbox>
 			</div>

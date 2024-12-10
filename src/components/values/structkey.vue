@@ -14,7 +14,7 @@
 	const keyType = ref('static');
 
 	const staticName = ref('');
-	const dymanicName = ref(
+	const dynamicName = ref(
 		(() => {
 			let string = new StringType();
 			string.lengthRange = new NumericRange();
@@ -23,11 +23,11 @@
 	);
 
 	watch(
-		[staticName, dymanicName],
+		[staticName, dynamicName],
 		() => {
 			key.value.name = staticName.value;
 			key.value.isDynamic = keyType.value === 'dynamic';
-			key.value.dynamicKey = dymanicName.value;
+			key.value.dynamicKey = dynamicName.value;
 		},
 		{ immediate: true, deep: true },
 	);
@@ -49,8 +49,9 @@
 			</VaInput>
 			<string
 				v-if="keyType === 'dynamic'"
-				v-model:string="dymanicName"
+				v-model:string="dynamicName"
 			></string>
+
 		</div>
 	</div>
 </template>
