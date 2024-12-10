@@ -118,7 +118,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="flex flex-row ml-24 m-2 rounded-lg">
+		<div class="flex flex-row ml-24 m-2 rounded-lg *:pr-4">
 			<structvalue
 				class="bg-secondary"
 				v-model:structvalue="type"

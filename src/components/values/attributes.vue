@@ -33,10 +33,8 @@
 					<attribute v-model:attribute="attributes[index]"></attribute>
 				</div>
 			</div>
-		</div>
-		<div class="flex items-end">
 			<VaButton
-				class="max-h-min"
+				class="max-h-min self-end"
 				color="#447766"
 				@click="attributeTemp.push(new Attribute('', ''))"
 				>+</VaButton
