@@ -46,8 +46,8 @@ watch(
 </script>
 
 <template>
-  <div class="flex flex-col *:items-center bg-primary rounded-lg border">
-    <div class="flex flex-row m-2 gap-2">
+  <div class="flex flex-col *:items-center bg-primary rounded-lg border p-4">
+    <div class="flex flex-row gap-2">
       <VaChip outline color="#FFF" square size="medium" readonly
         >Struct
       </VaChip>
