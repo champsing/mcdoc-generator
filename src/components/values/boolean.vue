@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { defineModel } from "vue";
 import { BooleanType } from "@/mcdoc/types";
+import {VaChip} from 'vuestic-ui'
 // @ts-ignore
 const boolean = defineModel("boolean", {
   type: BooleanType,
@@ -10,5 +11,12 @@ const boolean = defineModel("boolean", {
 </script>
 
 <template>
-  <div class="flex">Boolean</div>
+	
+	<VaChip 
+					outline
+					color="#FFF"
+					square
+					size="medium"
+					readonly
+	class="flex">Boolean</VaChip>
 </template>
