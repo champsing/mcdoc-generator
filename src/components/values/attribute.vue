@@ -11,10 +11,11 @@
 	const validNames = Array.from(validAttributeNames);
 	const name = ref(validNames[0]);
 	const value = ref('');
-
+	// @ts-ignore
+	const nameWithValues = [['color', 'hex_rgb']];
 	watchEffect(() => {
 		attribute.value.name = name.value;
-		attribute.value.value = value.value;
+		attribute.value.value = name.value === 'color' ? 'hex_rgb' : value.value;
 	});
 
 	const attributeRuleSet = ref((type: string) => {
@@ -22,9 +23,11 @@
 			return [
 				(v: string) => {
 					//hex or rgb
-					return !!v.match(
-						/^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$|^rgb\((\d{1,3}),(\d{1,3}),(\d{1,3})\)$/,
-					);
+					return [
+						!!v.match(
+							/^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$|^rgb\((\d{1,3}),(\d{1,3}),(\d{1,3})\)$/,
+						),
+					];
 				},
 			];
 		}
@@ -40,14 +43,11 @@
 
 <template>
 	<div class="flex">
-		<VaSelect
-			v-model="name"
-			:options="validNames"
-		></VaSelect>
+		<VaSelect v-model="name" :options="validNames"></VaSelect>
 		<VaInput
 			v-model="value"
-			v-if="name == 'color' || name == 'dispatcher_key'"
-			:rules="[attributeRuleSet]"
+			v-if="name !== 'color'"
+			:rules="attributeRuleSet(name)"
 		>
 		</VaInput>
 	</div>
