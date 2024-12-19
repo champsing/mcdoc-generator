@@ -180,7 +180,7 @@ export class ListType extends NoAttributeType {
 export class StructType extends NoAttributeType {
 	private _name: string;
 	// Key-value pairs
-	mapping: [StructKey, McdocType][];
+	mapping: [StructKey, McdocType, boolean][];
 
 	constructor() {
 		super();
@@ -216,7 +216,7 @@ export class StructType extends NoAttributeType {
 			`struct ${nameStr}{\n` +
 			'  '.repeat(indentLevel + 1) +
 			this.mapping
-				.map(([k, v]) => `${k.toString()}: ${v.toString()}`)
+				.map(([k, v,o]) => `${k.toString()}${!!o?'?':''}: ${v.toString()}`)
 				.join(',\n') +
 			'\n' +
 			'  '.repeat(indentLevel) +
